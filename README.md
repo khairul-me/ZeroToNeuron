@@ -4,19 +4,15 @@
 
 This project implements an Artificial Neural Network (ANN) from scratch in Java to predict diabetes using the CDC health indicators dataset. The neural network uses a backpropagation algorithm and supports variable architectures with different hidden layer configurations and learning rates.
 
-![Neural Network Architecture](https://i.imgur.com/qmdiJuW.png)
-
-*Neural Network Architecture with Multiple Hidden Layers*
-
 ## Dataset
 
 The CDC diabetes health indicators dataset contains 253,680 records with health-related features. The target variable `Diabetes_012` is converted to binary for classification (0: No diabetes, 1: Diabetes/Prediabetes).
 
 Dataset source: [CDC Diabetes Health Indicators](https://archive.ics.uci.edu/dataset/891/cdc+diabetes+health+indicators)
 
-![Class Distribution](https://i.imgur.com/sNLvjE0.png)
-
-*Class distribution in the dataset shows significant imbalance*
+The dataset has a significant class imbalance:
+- Class 0 (No diabetes): 84.2% of samples
+- Class 1 (Diabetes/Prediabetes): 15.8% of samples
 
 ## Features
 
@@ -99,32 +95,50 @@ The project includes three experiments:
 
 This experiment tests different numbers of neurons (5, 50, 100) in each hidden layer.
 
-![Experiment 1 Results](https://i.imgur.com/9Ue0FHw.png)
+| Hidden Layer Size | Training Accuracy | Testing Accuracy | Training Time (s) |
+|-------------------|-------------------|------------------|-------------------|
+| 5-5               | 84.20%            | 84.33%           | 1,863.6           |
+| 50-50             | 84.20%            | 84.33%           | 12,797.8          |
+| 100-100           | 84.20%            | 84.33%           | 29,436.8          |
 
 ### 2. Varying Hidden Layer Count
 
 This experiment tests different numbers of hidden layers (2, 4, 6) with 50 neurons each.
 
-![Experiment 2 Results](https://i.imgur.com/r4MXxnp.png)
+| Hidden Layers | Configuration       | Testing Accuracy | Training Time (s) |
+|---------------|---------------------|------------------|-------------------|
+| 2             | 50-50               | 84.33%           | 12,797.8          |
+| 4             | 50-50-50-50         | 84.33%           | 21,532.0          |
+| 6             | 50-50-50-50-50-50   | 84.33%           | 47,623.8          |
 
 ### 3. Varying Learning Rate
 
 This experiment tests different learning rates (0.01, 0.1, 0.5) with 4 hidden layers.
 
-![Experiment 3 Results](https://i.imgur.com/tAQkITD.png)
+| Learning Rate | Testing Accuracy | Training Time (s) |
+|---------------|------------------|-------------------|
+| 0.01          | 84.33%           | 17,173.1          |
+| 0.1           | 84.33%           | 21,877.9          |
+| 0.5           | 84.33%           | 32,187.4          |
 
 ## Performance Analysis
 
 The class imbalance in the dataset (84.2% no diabetes vs. 15.8% diabetes/prediabetes) significantly affects the learning process. The model achieves consistent accuracy of ~84.3% across all configurations, suggesting it defaults to predicting the majority class.
-
-![Class Imbalance Effect](https://i.imgur.com/F7sXEWb.png)
 
 Training times vary significantly based on network complexity:
 - 5 neurons per layer: ~31 minutes
 - 100 neurons per layer: ~8 hours
 - 6 hidden layers: ~13 hours
 
-![Training Time Comparison](https://i.imgur.com/9sGMFO8.png)
+## Neural Network Architecture
+
+The network architecture implemented in this project consists of:
+- Input layer: 21 neurons (one for each feature)
+- Hidden layers: Variable number (2, 4, or 6 in experiments)
+- Hidden layer neurons: Variable count (5, 50, or 100 in experiments) 
+- Output layer: 1 neuron with sigmoid activation
+- Hidden layer activation: ReLU
+- Weight initialization: Random values between -0.5 and 0.5
 
 ## Troubleshooting
 
